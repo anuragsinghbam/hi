@@ -10,7 +10,12 @@ jobs:
                 pwd
                 cd /
                 pwd
+                ls -a
+                cd
+                ls -a
+                echo "Node Version"
                 node -v
+                echo "Git Version"
                 git -v
+                echo "Docker Version"
                 docker -v
-                lsb_release -a
