@@ -5,28 +5,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print env object
-        run: echo `${{toJson(env)}}`
+        run: echo "${{toJson(env)}}"
 
       - name: Print github object
-        run: echo `${{toJson(github)}}`
+        run: echo "${{toJson(github)}}"
 
       - name: Print job object
-        run: echo `${{toJson(job)}}`
+        run: echo "${{toJson(job)}}"
 
       - name: Print inputs object
-        run: echo `${{toJson(inputs)}}`
+        run: echo "${{toJson(inputs)}}"
 
       - name: Print needs object
-        run: echo `${{toJson(needs)}}`
+        run: echo "${{toJson(needs)}}"
 
       - name: Print runner object
-        run: echo `${{toJson(runner)}}`
+        run: echo "${{toJson(runner)}}"
 
       - name: Print secrets object
-        run: echo `${{toJson(secrets)}}`
+        run: echo "${{toJson(secrets)}}"
 
       - name: Print steps object
-        run: echo `${{toJson(steps)}}`
+        run: echo "${{toJson(steps)}}"
 
       - name: Print vars object
-        run: echo `${{toJson(vars)}}`
+        run: echo "${{toJson(vars)}}"
