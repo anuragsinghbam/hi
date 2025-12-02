@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print env object
-        run: echo "${{env.EC2_HOST}}"
+        run:  echo "::notice title=Branch:: ${{ github.ref_name }}"
         if: true
 
       - name: Print github object
