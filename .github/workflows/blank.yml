@@ -8,5 +8,5 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - name: Print inputs object
-        run: echo "$EC2_HOST"
+     - run: echo "${{toJson(env)}}"
+     - run: echo "${{toJson(github)}}"
