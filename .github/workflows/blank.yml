@@ -23,7 +23,7 @@ jobs:
         run: echo "${{toJson(runner)}}"
 
       - name: Print secrets object
-        run: echo "${{toJson(secrets.GITHUB_TOKEN)}}"
+        run: echo "${{toJson(secrets)}}"
 
       - name: Print steps object
         run: echo "${{toJson(steps)}}"
