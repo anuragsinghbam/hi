@@ -5,4 +5,4 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: first-step
-              run: echo ${{ 5 - 9 }}
+              run: echo ${{toJSON(github)}}
