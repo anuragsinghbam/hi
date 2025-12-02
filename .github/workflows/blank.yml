@@ -6,9 +6,11 @@ jobs:
     steps:
       - name: Print env object
         run: echo "${{toJson(env)}}"
+        if: true
 
       - name: Print github object
         run: echo "${{toJson(github)}}"
+        if: false
 
       - name: Print job object
         run: echo "${{toJson(job)}}"
