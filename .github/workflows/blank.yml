@@ -9,7 +9,47 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print env object
-        run:  echo "${{toJSON(github)}}"
+        run:  echo "${{ !false }}"
+        if: true
+        
+      - name: Print
+        run:  echo "${{ 10 <= 7 }}"
+        if: true
+        
+      - name: Print
+        run:  echo "${{ 1 }}"
+        if: true
+        
+      - name: Print
+        run:  echo "${{ 'hi' }}"
+        if: true
+        
+      - name: Print
+        run:  echo "${{ null }}"
+        if: true
+        
+      - name: Print
+        run:  echo "${{ 7 > 3 && 2 > 1 }}"
+        if: true
+        
+      - name: Print
+        run:  echo "${{  true && false }}"
+        if: true
+        
+      - name: Print
+        run:  echo "${{ true || false }}"
+        if: true
+        
+      - name: Print
+        run:  echo "${{ ! false  }}"
+        if: true
+        
+      - name: Print
+        run:  echo "${{  5 > 3 && 2 > 10  }}"
+        if: true
+        
+      - name: Print
+        run:  echo "${{  }}"
         if: true
 
       - name: Print github object
