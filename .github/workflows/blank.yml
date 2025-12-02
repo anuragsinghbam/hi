@@ -1,8 +1,8 @@
-name: First Workflow
+`name: First Workflow
 on: push
 jobs:
     first-job:
         runs-on: ubuntu-latest
         steps:
             - name: first-step
-              run: echo ${{5-9}}
+              run: echo ${{ 5 - 9 }}
