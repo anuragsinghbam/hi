@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print inputs object
-        run: echo "${{toJson(matrix)}}"
+        run: echo "${{$EC2_HOST}}"
