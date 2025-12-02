@@ -2,7 +2,7 @@ name: My first workflow
 on: [push, workflow_dispatch]
 jobs:
   my-first-job:
-    if: "1"
+    if: "10"
     runs-on: ubuntu-latest
     steps:
       - name: Print env object
