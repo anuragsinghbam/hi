@@ -8,4 +8,6 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-     - run: echo "${{toJson(steps)}}"
+    - name: Create output
+      id: hello
+      run: echo "${{toJson(steps)}}"
