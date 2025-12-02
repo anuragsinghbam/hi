@@ -10,4 +10,5 @@ jobs:
     steps:
     - name: Create output
       id: hello
-      run: echo "${{toJson(steps)}}"
+      run: echo "message=Hello from step" >> $GITHUB_OUTPUT
+    - run: echo "${{toJson(steps)}}"
