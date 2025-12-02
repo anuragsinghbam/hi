@@ -49,7 +49,7 @@ jobs:
         if: true
         
       - name: Print
-        run:  echo "${{  }}"
+        run:  echo "${{ '' }}"
         if: true
 
       - name: Print github object
