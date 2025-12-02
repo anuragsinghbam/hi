@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print env object
-        run: echo "${{toJson(env)}}"
+        run: echo "${{env.EC2_HOST}}"
         if: true
 
       - name: Print github object
