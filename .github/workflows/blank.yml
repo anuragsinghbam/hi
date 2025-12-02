@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print env object
-        run:  echo "${{github.actor}}"
+        run:  echo "${{toJSON(github)}}"
         if: true
 
       - name: Print github object
