@@ -10,3 +10,7 @@ jobs:
     - run: echo "${{toJson(secrets)}}"
     - run: echo "${{toJson(vars)}}"
     - run: echo "${{toJson(env)}}"
+    - run: echo "$GITHUB_TOKEN"
+    - run: echo "$BYE"
+    - run: echo "$EC2_USER"
+    - run: echo "$HOLA"
