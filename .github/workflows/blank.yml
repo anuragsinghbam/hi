@@ -5,10 +5,8 @@ env:
   EC2_USER: ubuntu
 jobs:
   my-first-job:
-    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-    - name: Create output
-      id: hello
-      run: echo "message=Hello from step" >> $GITHUB_OUTPUT
-    - run: echo "${{toJson(steps)}}"
+    - run: echo "${{toJson(secrets)}}"
+    - run: echo "${{toJson(vars)}}"
+    - run: echo "${{toJson(env)}}"
