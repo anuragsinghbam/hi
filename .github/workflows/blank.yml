@@ -3,8 +3,8 @@ on: push
 
 jobs:
   my-first-job:
-    runs-on: self-hosted
+    runs-on: [self-hosted, Windows, X64]
     steps:
       - run: echo "${{toJson(runner)}}"
-      - run: pwd
+      - run: pwd`
       - run: ls
