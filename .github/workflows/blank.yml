@@ -10,6 +10,8 @@ jobs:
       S3_BUCKET_NAME: storageapp-frontend
       CLOUDFRONT_DISTRIBUTION_ID: E3GKKIA9RCN7AF
       APP_DIR: stroageApp-frontend
+      VITE_GOOGLE_CLIENT_ID: 594555697613-18p3s2o6hl7mvc3gj0o2a2bg7b27tj9m.apps.googleusercontent.com 
+      VITE_BACKEND_BASE_URL: https://api.procodrr.org
 
     steps:
       # 1. Clone the public repo (no checkout action)
