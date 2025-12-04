@@ -1,4 +1,5 @@
 name: Deploy StorageApp Frontend
+
 on: [workflow_dispatch]
 
 jobs:
@@ -6,45 +7,29 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      # Optional: move these to repo variables or secrets if you prefer
       S3_BUCKET_NAME: storageapp-frontend
       CLOUDFRONT_DISTRIBUTION_ID: E3GKKIA9RCN7AF
-      APP_DIR: stroageApp-frontend
-      VITE_GOOGLE_CLIENT_ID: 594555697613-18p3s2o6hl7mvc3gj0o2a2bg7b27tj9m.apps.googleusercontent.com 
+      VITE_GOOGLE_CLIENT_ID: 594555697613-18p3s2o6hl7mvc3gj0o2a2bg7b27tj9m.apps.googleusercontent.com
       VITE_BACKEND_BASE_URL: https://api.procodrr.org
 
     steps:
-      # 1. Clone the public repo (no checkout action)
       - name: Clone frontend repository
-        run: |
-          git clone https://github.com/procodrr/stroageApp-frontend.git "$APP_DIR"
-          ls -la
+        run: git clone https://github.com/procodrr/stroageApp-frontend.git .
 
-      # 2. Setup Node
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "23"
 
-      # 3. Install dependencies
       - name: Install dependencies
-        run: |
-          cd "$APP_DIR"
-          npm ci
+        run: npm ci
 
-      # 4. Run tests
       - name: Run tests
-        run: |
-          cd "$APP_DIR"
-          npm test
+        run: npm test
 
-      # 5. Build React app
       - name: Build app
-        run: |
-          cd "$APP_DIR"
-          npm run build
+        run: npm run build
 
-      # 6. Configure AWS credentials from GitHub Secrets
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -52,19 +37,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # 7. Upload build output to S3 (dist folder)
       - name: Upload to S3
-        run: |
-          cd "$APP_DIR"
-          aws s3 cp dist/ "s3://${S3_BUCKET_NAME}/" --recursive
+        run: aws s3 cp dist/ "s3://${S3_BUCKET_NAME}/" --recursive
 
-      # 8. Invalidate CloudFront cache
       - name: Invalidate CloudFront
         run: |
           aws cloudfront create-invalidation \
             --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" \
             --paths "/index.html"
 
-      # 9. Done
       - name: Deployment complete
         run: echo "Frontend Deployed Successfully..."
