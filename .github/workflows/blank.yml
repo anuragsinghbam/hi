@@ -1,16 +1,70 @@
-name: My first workflow
-on: [push, workflow_dispatch]
-env:
-  EC2_HOST: 13.203.175.237
-  EC2_USER: ubuntu
+name: Deploy StorageApp Frontend
+on: [workflow_dispatch]
+
 jobs:
-  my-first-job:
+  deploy:
     runs-on: ubuntu-latest
+
+    env:
+      # Optional: move these to repo variables or secrets if you prefer
+      S3_BUCKET_NAME: storageapp-frontend
+      CLOUDFRONT_DISTRIBUTION_ID: E3GKKIA9RCN7AF
+      APP_DIR: stroageApp-frontend
+
     steps:
-    - run: echo "${{toJson(secrets)}}"
-    - run: echo "${{toJson(vars)}}"
-    - run: echo "${{toJson(env)}}"
-    - run: echo "$GITHUB_TOKEN"
-    - run: echo "$BYE"
-    - run: echo "$EC2_USER"
-    - run: echo "$HOLA"
+      # 1. Clone the public repo (no checkout action)
+      - name: Clone frontend repository
+        run: |
+          git clone https://github.com/procodrr/stroageApp-frontend.git "$APP_DIR"
+          ls -la
+
+      # 2. Setup Node
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "23"
+          cache: "npm"
+          cache-dependency-path: ${{ env.APP_DIR }}/package-lock.json
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: |
+          cd "$APP_DIR"
+          npm ci
+
+      # 4. Run tests
+      - name: Run tests
+        run: |
+          cd "$APP_DIR"
+          npm test
+
+      # 5. Build React app
+      - name: Build app
+        run: |
+          cd "$APP_DIR"
+          npm run build
+
+      # 6. Configure AWS credentials from GitHub Secrets
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # 7. Upload build output to S3 (dist folder)
+      - name: Upload to S3
+        run: |
+          cd "$APP_DIR"
+          aws s3 cp dist/ "s3://${S3_BUCKET_NAME}/" --recursive
+
+      # 8. Invalidate CloudFront cache
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" \
+            --paths "/index.html"
+
+      # 9. Done
+      - name: Deployment complete
+        run: echo "Frontend Deployed Successfully..."
